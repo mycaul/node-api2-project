@@ -115,25 +115,25 @@ router.delete('/:id', (req, res) => {
 router.put('/:id', (req, res) => {
   const updatePost = req.body;
 
-  Posts.findById(req.params.id)
-    .then(() => {
-      if (!updatePost.title || !updatePost.contents) {
+  Posts.update(req.params.id, updatePost)
+    .then ( apple => {
+      if (updatePost.title === " "|| updatePost.contents === " ") {
         res.status(400).json({
           errorMessage:
             'Please provide title and contents for the post.',
         });
       } else {
-        Posts.update(updatePost)
-          .then(() => {
-            res.status(200).json(updatePost);
-          })
-          .catch((err) => {
-            res.status(500).json({
-              error: 'The post information could not be modified.',
-            });
-          });
+        // Posts.update(updatePost)
+        //   .then(() => {
+            res.status(200).json(apple);
       }
-    })
+        //   .catch((err) => {
+        //     res.status(500).json({
+        //       error: 'The post information could not be modified.',
+        //     });
+        //   });
+      }) 
+    
     .catch((err) => {
       res.status(404).json({
         message: 'The post with the specified ID does not exist.',
